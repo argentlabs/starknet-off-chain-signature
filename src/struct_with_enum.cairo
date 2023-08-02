@@ -18,7 +18,7 @@ const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 =
     0x28dd8cb67a18f24036cea63e72c714157cccaad60b0eede0a468612d13c1755;
 
 // H('SomeEnum::SecondChoice()')                                                                          
-const ENUM_SECOND_CHOICE_TYPE_HASH: felt252 =
+const ENUM_SEC_CHOICE_TYPE_HASH: felt252 =
     0x37b53e745a09647bd052eed3d841d034b68be6875b8ca2b6946713872920de0;
 
 // H('SomeEnum::ThirdChoice()')                                                                          
@@ -94,7 +94,7 @@ impl LegacyHashSomeEnum of IStructHash<SomeEnum> {
     fn hash_struct(self: @SomeEnum) -> felt252 {
         let enum_hash = match self {
             SomeEnum::FirstChoice(_) => ENUM_FIRST_CHOICE_TYPE_HASH,
-            SomeEnum::SecondChoice(_) => ENUM_SECOND_CHOICE_TYPE_HASH,
+            SomeEnum::SecondChoice(_) => ENUM_SEC_CHOICE_TYPE_HASH,
             SomeEnum::ThirdChoice(_) => ENUM_THIRD_CHOICE_TYPE_HASH,
         };
         let mut state = LegacyHash::hash(0, enum_hash);
