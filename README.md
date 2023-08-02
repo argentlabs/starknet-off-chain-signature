@@ -6,7 +6,7 @@ Note that each file can be taken as a standalone, which is why there might be so
 The most simple case can be found [here](./src/simple_struct.cairo)
 
 This repository is an appendix to the official discussion taking place on the official forum. Please start by reading it at this address:  
-// TODO shamans link
+https://community.starknet.io/t/snip-off-chain-signatures-a-la-eip712
 
 ## Future Compatibility 
 
