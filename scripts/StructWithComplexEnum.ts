@@ -1,4 +1,4 @@
-import {  selector, typedData } from "starknet";
+import { selector, typedData } from "starknet";
 
 const types = {
   StarkNetDomain: [

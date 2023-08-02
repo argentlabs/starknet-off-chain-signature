@@ -1,4 +1,4 @@
-import {  typedData, uint256 } from "starknet";
+import { typedData, uint256 } from "starknet";
 
 const types = {
   StarkNetDomain: [

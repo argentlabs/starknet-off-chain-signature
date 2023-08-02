@@ -1,4 +1,4 @@
-import {  typedData } from "starknet";
+import { typedData } from "starknet";
 
 const types = {
   StarkNetDomain: [
