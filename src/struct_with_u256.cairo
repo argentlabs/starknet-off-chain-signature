@@ -8,7 +8,7 @@ use starknet::{
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
 
-// H('StructWithU256(some_felt252:felt,some_u256:u256)')                                                                          
+// H('StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)')                                                                          
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
     0x35adf841dd9b75f25c756d57ff358ca550373f6b6043948ab6e34e958136016;
 
