@@ -1,0 +1,27 @@
+name: Typescript CI
+on: push
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Check out main branch
+        uses: actions/checkout@v3
+
+      - name: Step 2 - Install project
+        run: yarn install --frozen-lockfile
+
+      - name: Step 3 - Check correct formatting
+        run: yarn prettier --check .
+
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Step 1 - Check out main branch
+        uses: actions/checkout@v3
+
+      - name: Step 2 - Install project
+        run: yarn install --frozen-lockfile
+
+      - name: Step 3 - Check correct linting
+        run: yarn eslint --fix .

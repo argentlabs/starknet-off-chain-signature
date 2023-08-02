@@ -1,0 +1,29 @@
+name: Cairo CI
+
+on: push
+
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Scarb
+        id: get-scarb-version
+        run:
+          echo "::set-output name=SCARB_VERSION::$(awk '{print $2}' .tool-versions)"
+      - uses: software-mansion/setup-scarb@v1
+        with:
+          scarb-version: ${{ steps.get-scarb-version.outputs.SCARB_VERSION }}
+      - run: scarb test
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Scarb
+        id: get-scarb-version
+        run:
+          echo "::set-output name=SCARB_VERSION::$(awk '{print $2}' .tool-versions)"
+      - uses: software-mansion/setup-scarb@v1
+        with:
+          scarb-version: ${{ steps.get-scarb-version.outputs.SCARB_VERSION }}
+      - run: scarb fmt --check

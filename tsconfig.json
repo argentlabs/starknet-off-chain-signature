@@ -1,0 +1,17 @@
+{
+  "extends": "@tsconfig/node18/tsconfig.json",
+  "compilerOptions": {
+    "target": "es2020",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["es2020", "dom"]
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node"
+  },
+  "include": ["/**/*.ts"],
+  "exclude": ["node_modules", "cairo"]
+}

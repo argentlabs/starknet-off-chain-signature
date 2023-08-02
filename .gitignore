@@ -1,0 +1,9 @@
+target
+
+node_modules
+dist
+.env
+venv
+.idea
+cairo
+.vscode
