@@ -1,4 +1,4 @@
-import { selector, typedData, constants } from "starknet";
+import { constants, selector, typedData } from "starknet";
 
 const types = {
   StarkNetDomain: [
@@ -24,7 +24,7 @@ interface StructWithEnum {
   some_enum: string[];
 }
 
-function getDomain(chainId: constants.NetworkName,): typedData.StarkNetDomain {
+function getDomain(chainId: constants.NetworkName): typedData.StarkNetDomain {
   return {
     name: "dappName",
     version: "1",
@@ -38,7 +38,7 @@ function getTypedDataHash(myStruct: StructWithEnum, chainId: constants.NetworkNa
 
 // Needed to reproduce the same structure as:
 // https://github.com/0xs34n/starknet.js/blob/1a63522ef71eed2ff70f82a886e503adc32d4df9/__mocks__/typedDataStructArrayExample.json
-function getTypedData(myStruct: StructWithEnum, chainId: constants.NetworkName,): typedData.TypedData {
+function getTypedData(myStruct: StructWithEnum, chainId: constants.NetworkName): typedData.TypedData {
   return {
     types,
     primaryType: "StructWithEnum",
