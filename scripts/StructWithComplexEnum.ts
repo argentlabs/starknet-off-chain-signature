@@ -1,4 +1,4 @@
-import { selector, typedData } from "starknet";
+import { selector, typedData, constants } from "starknet";
 
 const types = {
   StarkNetDomain: [
@@ -17,7 +17,7 @@ interface StructWithEnum {
   some_complex_enum: string[];
 }
 
-function getDomain(chainId: string): typedData.StarkNetDomain {
+function getDomain(chainId: constants.NetworkName,): typedData.StarkNetDomain {
   return {
     name: "dappName",
     version: "1",
@@ -25,13 +25,13 @@ function getDomain(chainId: string): typedData.StarkNetDomain {
   };
 }
 
-function getTypedDataHash(myStruct: StructWithEnum, chainId: string, owner: bigint): string {
+function getTypedDataHash(myStruct: StructWithEnum, chainId: constants.NetworkName, owner: bigint): string {
   return typedData.getMessageHash(getTypedData(myStruct, chainId), owner);
 }
 
 // Needed to reproduce the same structure as:
 // https://github.com/0xs34n/starknet.js/blob/1a63522ef71eed2ff70f82a886e503adc32d4df9/__mocks__/typedDataStructArrayExample.json
-function getTypedData(myStruct: StructWithEnum, chainId: string): typedData.TypedData {
+function getTypedData(myStruct: StructWithEnum, chainId: constants.NetworkName,): typedData.TypedData {
   return {
     types,
     primaryType: "StructWithEnum",
@@ -53,4 +53,4 @@ console.log(
 console.log(
   `const ENUM_THIRD_CHOICE_TYPE_HASH: felt252 = ${selector.getSelectorFromName("SomeEnum::ThirdChoice(felt,felt)")};`,
 );
-console.log(`test test_valid_hash ${getTypedDataHash(structWithEnum, "0", 420n)};`);
+console.log(`test test_valid_hash ${getTypedDataHash(structWithEnum, constants.NetworkName.SN_MAIN, 420n)};`);
