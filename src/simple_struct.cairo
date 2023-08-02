@@ -4,11 +4,11 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 
-// H('StarkNetDomain(name:felt,version:felt,chainId:felt)')
+// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
 
-// H('SimpleStruct(some_felt252:felt,some_u128:felt)')                                                                          
+// h('SimpleStruct(some_felt252:felt,some_u128:felt)')                                                                          
 const SIMPLE_STRUCT_TYPE_HASH: felt252 =
     0x25177052b0f318e5f6ee29b592db4404f8dd010af48a0e87d122195bc43e040;
 

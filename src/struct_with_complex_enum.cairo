@@ -5,23 +5,23 @@ use starknet::{
 };
 use traits::Into;
 
-// H('StarkNetDomain(name:felt,version:felt,chainId:felt)')
+// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
 
-// H('StructWithEnum(some_felt252:felt,some_complex_enum:felt)')                                                                          
+// h('StructWithEnum(some_felt252:felt,some_complex_enum:felt)')                                                                          
 const STRUCT_WITH_ENUM_TYPE_HASH: felt252 =
     0x3b49852745590b48cdb4128ff17830dcbb63627fe5f1afa864e4f549e361e86;
 
-// H('SomeEnum::FirstChoice()')
+// h('SomeEnum::FirstChoice()')
 const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 =
     0x28dd8cb67a18f24036cea63e72c714157cccaad60b0eede0a468612d13c1755;
 
-// H('SomeEnum::SecondChoice(felt)')
+// h('SomeEnum::SecondChoice(felt)')
 const ENUM_SECOND_CHOICE_TYPE_HASH: felt252 =
     0x3d238c1c1f9b0bac95f99d1d30a376fb19c6447261bfce8db97fd19856fdcd3;
 
-// H('SomeEnum::ThirdChoice(felt,felt)')
+// h('SomeEnum::ThirdChoice(felt,felt)')
 const ENUM_THIRD_CHOICE_TYPE_HASH: felt252 =
     0x3cfd38cbc44d4ec54759422dabfd051d7f20a407a53f1e6bc0fc3d9e321b952;
 
