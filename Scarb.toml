@@ -10,9 +10,9 @@ starknet = "=2.0.0"
 
 [scripts]
 simpleStruct= "yarn ts-node scripts/SimpleStruct.ts"
-structWithU256= "yarn ts-node scripts/StructWithU256.ts"
 structWithArray= "yarn ts-node scripts/StructWithArray.ts"
 structWithEnum= "yarn ts-node scripts/StructWithEnum.ts"
 structWithComplexEnum= "yarn ts-node scripts/StructWithComplexEnum.ts"
 structWithTuple= "yarn ts-node scripts/StructWithTuple.ts"
+structWithU256= "yarn ts-node scripts/StructWithU256.ts"
 format = "scarb fmt && yarn prettier --write ."

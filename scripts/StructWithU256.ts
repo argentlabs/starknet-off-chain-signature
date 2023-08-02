@@ -1,4 +1,4 @@
-import { constants, typedData, uint256 } from "starknet";
+import {  typedData, uint256 } from "starknet";
 
 const types = {
   StarkNetDomain: [
@@ -21,7 +21,7 @@ interface StructWithU256 {
   some_u256: uint256.Uint256;
 }
 
-function getDomain(chainId: constants.NetworkName): typedData.StarkNetDomain {
+function getDomain(chainId: string): typedData.StarkNetDomain {
   return {
     name: "dappName",
     version: "1",
@@ -29,13 +29,13 @@ function getDomain(chainId: constants.NetworkName): typedData.StarkNetDomain {
   };
 }
 
-function getTypedDataHash(myStruct: StructWithU256, chainId: constants.NetworkName, owner: bigint): string {
+function getTypedDataHash(myStruct: StructWithU256, chainId: string, owner: bigint): string {
   return typedData.getMessageHash(getTypedData(myStruct, chainId), owner);
 }
 
 // Needed to reproduce the same structure as:
 // https://github.com/0xs34n/starknet.js/blob/1a63522ef71eed2ff70f82a886e503adc32d4df9/__mocks__/typedDataStructArrayExample.json
-function getTypedData(myStruct: StructWithU256, chainId: constants.NetworkName): typedData.TypedData {
+function getTypedData(myStruct: StructWithU256, chainId: string): typedData.TypedData {
   return {
     types,
     primaryType: "StructWithU256",
@@ -52,4 +52,4 @@ const structWithU256: StructWithU256 = {
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
 console.log(`const STRUCT_WITH_U256_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithU256")};`);
 console.log(`const U256_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "u256")};`);
-console.log(`test test_valid_hash ${getTypedDataHash(structWithU256, constants.NetworkName.SN_MAIN, 420n)};`);
+console.log(`test test_valid_hash ${getTypedDataHash(structWithU256, "0", 420n)};`);
