@@ -8,7 +8,6 @@ const types = {
   ],
   StructWithTuple: [
     { name: "some_felt252", type: "felt" },
-    { name: "some_tuple_len", type: "felt" },
     { name: "some_tuple", type: "felt*" },
   ],
 };
@@ -36,7 +35,7 @@ function getTypedData(myStruct: StructWithTuple, chainId: string): typedData.Typ
     types,
     primaryType: "StructWithTuple",
     domain: getDomain(chainId),
-    message: { ...myStruct, some_tuple_len: myStruct.some_tuple.length },
+    message: { ...myStruct},
   };
 }
 
