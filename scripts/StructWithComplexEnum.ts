@@ -44,7 +44,7 @@ const structWithEnum: StructWithEnum = {
   some_complex_enum: [selector.getSelectorFromName("SomeEnum::ThirdChoice(felt,felt)"), "42", "128"],
 };
 
-// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
+// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
 console.log(`const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 = ${selector.getSelectorFromName("SomeEnum::FirstChoice()")};`);
 console.log(

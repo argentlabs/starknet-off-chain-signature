@@ -49,11 +49,11 @@ const structWithU256: StructWithU256 = {
   some_u256: uint256.bnToUint256(42),
 };
 
-// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
+// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
-// h('u256(low:felt,high:felt)')
+// sn_keccak('u256(low:felt,high:felt)')
 console.log(`const U256_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "u256")};`);
-// h('StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)')
+// sn_keccak('StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)')
 console.log(`const STRUCT_WITH_U256_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithU256")};`);
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithU256, "0", 420n)};`);

@@ -43,10 +43,10 @@ const structWithTuple: StructWithTuple = {
   some_felt252: "712",
   some_tuple: ["42", "64", "128"],
 };
-
-// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
+// TODO UPDATE CAIRO PART
+// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
-// h('StructWithTuple(some_felt252:felt,some_tuple:felt*)')
+// sn_keccak('StructWithTuple(some_felt252:felt,some_tuple:felt*)')
 console.log(`const STRUCT_WITH_TUPLE_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithTuple")};`);
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithTuple, "0", 420n)};`);
