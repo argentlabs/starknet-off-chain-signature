@@ -45,6 +45,9 @@ const simpleStruct: SimpleStruct = {
   some_u128: "42",
 };
 
+// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
+// h('SimpleStruct(some_felt252:felt,some_u128:felt)')
 console.log(`const SIMPLE_STRUCT_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "SimpleStruct")};`);
+
 console.log(`test test_valid_hash ${getTypedDataHash(simpleStruct, "0", 420n)};`);

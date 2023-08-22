@@ -52,9 +52,11 @@ const structWithEnum: StructWithEnum = {
   some_enum: [SomeEnum.ThirdChoice],
 };
 
+// h('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
-console.log(`const STRUCT_WITH_ENUM_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithEnum")};`);
 console.log(`const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 = ${selector.getSelectorFromName("SomeEnum::FirstChoice()")};`);
 console.log(`const ENUM_SEC_CHOICE_TYPE_HASH: felt252 = ${selector.getSelectorFromName("SomeEnum::SecondChoice()")};`);
 console.log(`const ENUM_THIRD_CHOICE_TYPE_HASH: felt252 = ${selector.getSelectorFromName("SomeEnum::ThirdChoice()")};`);
+console.log(`const STRUCT_WITH_ENUM_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithEnum")};`);
+
 console.log(`test test_valid_hash ${getTypedDataHash(structWithEnum, "0", 420n)};`);
