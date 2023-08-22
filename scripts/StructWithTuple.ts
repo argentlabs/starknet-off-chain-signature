@@ -35,7 +35,7 @@ function getTypedData(myStruct: StructWithTuple, chainId: string): typedData.Typ
     types,
     primaryType: "StructWithTuple",
     domain: getDomain(chainId),
-    message: { ...myStruct},
+    message: { ...myStruct },
   };
 }
 
