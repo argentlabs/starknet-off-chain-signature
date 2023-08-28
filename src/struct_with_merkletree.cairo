@@ -2,7 +2,7 @@ use box::BoxTrait;
 use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
-use pedersen::{PedersenTrait, HashState};
+use pedersen::PedersenTrait;
 use hash::{HashStateTrait, HashStateExTrait};
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =

@@ -2,8 +2,8 @@ use box::BoxTrait;
 use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
-use pedersen::{PedersenTrait, HashState};
-use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
+use pedersen::PedersenTrait;
+use hash::{HashStateTrait, HashStateExTrait};
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
@@ -13,7 +13,7 @@ const STRUCT_WITH_U256_TYPE_HASH: felt252 =
 
 const U256_TYPE_HASH: felt252 = selector!("u256(low:felt,high:felt)");
 
-#[derive(Drop, Copy)]
+#[derive(Drop, Copy, Hash)]
 struct StructWithU256 {
     some_felt252: felt252,
     some_u256: u256,
@@ -63,21 +63,22 @@ impl StructHashStarknetDomain of IStructHash<StarknetDomain> {
 
 impl StructHashStructWithU256 of IStructHash<StructWithU256> {
     fn hash_struct(self: @StructWithU256) -> felt252 {
-        let mut state = LegacyHash::hash(0, STRUCT_WITH_U256_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.some_felt252);
-        state = LegacyHash::hash(state, self.some_u256.hash_struct());
-        state = LegacyHash::hash(state, 3);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(STRUCT_WITH_U256_TYPE_HASH);
+        state = state.update_with(*self.some_felt252);
+        state = state.update_with(self.some_u256.hash_struct());
+        state = state.update_with(3);
+        state.finalize()
     }
 }
 
 impl StructHashU256 of IStructHash<u256> {
     fn hash_struct(self: @u256) -> felt252 {
-        let mut state = LegacyHash::hash(0, U256_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.low);
-        state = LegacyHash::hash(state, *self.high);
-        state = LegacyHash::hash(state, 3);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(U256_TYPE_HASH);
+        state = state.update_with(*self);
+        state = state.update_with(3);
+        state.finalize()
     }
 }
 
