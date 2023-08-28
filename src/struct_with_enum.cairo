@@ -51,14 +51,15 @@ impl OffchainMessageHashStructWithEnum of IOffchainMessageHash<StructWithEnum> {
         let domain = StarknetDomain {
             name: 'dappName', version: 1, chain_id: get_tx_info().unbox().chain_id
         };
-        let mut state = LegacyHash::hash(0, 'StarkNet Message');
-        state = LegacyHash::hash(state, domain.hash_struct());
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with('StarkNet Message');
+        state = state.update_with(domain.hash_struct());
         // This can be a field within the struct, it doesn't have to be get_caller_address().
-        state = LegacyHash::hash(state, get_caller_address());
-        state = LegacyHash::hash(state, self.hash_struct());
+        state = state.update_with(get_caller_address());
+        state = state.update_with(self.hash_struct());
         // Hashing with the amount of elements being hashed 
-        state = LegacyHash::hash(state, 4);
-        state
+        state = state.update_with(4);
+        state.finalize()
     }
 }
 
