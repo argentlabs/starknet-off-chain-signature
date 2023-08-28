@@ -72,8 +72,8 @@ impl StructHashSimpleStruct of IStructHash<SimpleStruct> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x1e739b39f83b38f182edaed69f730f18eff802d3ef44be91c3733cdcab6de2f;
+    let message_hash = 0x1e739b39f83b38f182edaed69f730f18eff802d3ef44be91c3733cdcab6de2f;
     let simple_struct = SimpleStruct { some_felt252: 712, some_u128: 42 };
     set_caller_address(contract_address_const::<420>());
-    assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');
+    assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
 }

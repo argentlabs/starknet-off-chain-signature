@@ -99,8 +99,8 @@ impl LegacyHashSomeEnum of IStructHash<SomeEnum> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x119b85972ccef13366168acc914627db42b5e7dd146d8be034224860b84a788;
+    let message_hash = 0x119b85972ccef13366168acc914627db42b5e7dd146d8be034224860b84a788;
     let simple_struct = StructWithEnum { some_felt252: 712, some_enum: SomeEnum::ThirdChoice(()) };
     set_caller_address(contract_address_const::<420>());
-    assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');
+    assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
 }

@@ -128,10 +128,10 @@ impl StructHashSpanFelt252 of IStructHash<(u64, u128)> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x4c376fd4cb54740092e961353ebea3e13dadf7fcdaf8eee920d82d9c80b8dca;
+    let message_hash = 0x4c376fd4cb54740092e961353ebea3e13dadf7fcdaf8eee920d82d9c80b8dca;
     let simple_struct = StructWithEnum {
         some_felt252: 712, some_complex_enum: SomeEnum::ThirdChoice((42, 128))
     };
     set_caller_address(contract_address_const::<420>());
-    assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');
+    assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
 }

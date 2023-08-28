@@ -84,8 +84,8 @@ impl StructHashU256 of IStructHash<u256> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x24fcf47ecd5090d0dfd5e66a57e5d56d3db3478e37bb90c1b1351b4317197fd;
+    let message_hash = 0x24fcf47ecd5090d0dfd5e66a57e5d56d3db3478e37bb90c1b1351b4317197fd;
     let simple_struct = StructWithU256 { some_felt252: 712, some_u256: 42 };
     set_caller_address(contract_address_const::<420>());
-    assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');
+    assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
 }

@@ -86,8 +86,8 @@ impl StructHashStructWithTuple of IStructHash<StructWithTuple> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x3de2027ea81a253fe02932d4210bc21b0378d3b100ea5df62dc133b259193de;
+    let message_hash = 0x3de2027ea81a253fe02932d4210bc21b0378d3b100ea5df62dc133b259193de;
     let simple_struct = StructWithTuple { some_felt252: 712, some_tuple: (42, 64, 128) };
     set_caller_address(contract_address_const::<420>());
-    assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');
+    assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
 }
