@@ -11,7 +11,7 @@ const types = {
     { name: "some_enum", type: "felt*" },
   ],
 };
-// TODO fix enum
+
 // Computed down using 'selector.getSelectorFromName()'
 enum SomeEnum {
   FirstChoice = "0x28dd8cb67a18f24036cea63e72c714157cccaad60b0eede0a468612d13c1755",

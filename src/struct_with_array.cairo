@@ -1,9 +1,10 @@
 use array::{ArrayTrait, SpanTrait};
 use box::BoxTrait;
-use hash::LegacyHash;
 use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
+use pedersen::{PedersenTrait, HashState};
+use hash::{LegacyHash, HashStateTrait, Hash, HashStateExTrait};
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
@@ -17,7 +18,7 @@ struct StructWithArray {
     some_array: Span<felt252>
 }
 
-#[derive(Drop, Copy)]
+#[derive(Drop, Copy, Hash)]
 struct StarknetDomain {
     name: felt252,
     version: felt252,
@@ -50,12 +51,11 @@ impl OffchainMessageHashStructWithArray of IOffchainMessageHash<StructWithArray>
 
 impl StructHashStarknetDomain of IStructHash<StarknetDomain> {
     fn hash_struct(self: @StarknetDomain) -> felt252 {
-        let mut state = LegacyHash::hash(0, STARKNET_DOMAIN_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.name);
-        state = LegacyHash::hash(state, *self.version);
-        state = LegacyHash::hash(state, *self.chain_id);
-        state = LegacyHash::hash(state, 4);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(STARKNET_DOMAIN_TYPE_HASH);
+        state = state.update_with(*self);
+        state = state.update_with(4);
+        state.finalize()
     }
 }
 
