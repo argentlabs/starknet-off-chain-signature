@@ -11,7 +11,7 @@ const STARKNET_DOMAIN_TYPE_HASH: felt252 =
 const SIMPLE_STRUCT_TYPE_HASH: felt252 =
     selector!("SimpleStruct(some_felt252:felt,some_u128:u128)");
 
-#[derive(Drop, Copy)]
+#[derive(Drop, Copy, Hash)]
 struct SimpleStruct {
     some_felt252: felt252,
     some_u128: u128,
@@ -37,14 +37,15 @@ impl OffchainMessageHashSimpleStruct of IOffchainMessageHash<SimpleStruct> {
         let domain = StarknetDomain {
             name: 'dappName', version: 1, chain_id: get_tx_info().unbox().chain_id
         };
-        let mut state = LegacyHash::hash(0, 'StarkNet Message');
-        state = LegacyHash::hash(state, domain.hash_struct());
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with('StarkNet Message');
+        state = state.update_with(domain.hash_struct());
         // This can be a field within the struct, it doesn't have to be get_caller_address().
-        state = LegacyHash::hash(state, get_caller_address());
-        state = LegacyHash::hash(state, self.hash_struct());
+        state = state.update_with(get_caller_address());
+        state = state.update_with(self.hash_struct());
         // Hashing with the amount of elements being hashed 
-        state = LegacyHash::hash(state, 4);
-        state
+        state = state.update_with(4);
+        state.finalize()
     }
 }
 
@@ -60,11 +61,11 @@ impl StructHashStarknetDomain of IStructHash<StarknetDomain> {
 
 impl StructHashSimpleStruct of IStructHash<SimpleStruct> {
     fn hash_struct(self: @SimpleStruct) -> felt252 {
-        let mut state = LegacyHash::hash(0, SIMPLE_STRUCT_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.some_felt252);
-        state = LegacyHash::hash(state, *self.some_u128);
-        state = LegacyHash::hash(state, 3);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(SIMPLE_STRUCT_TYPE_HASH);
+        state = state.update_with(*self);
+        state = state.update_with(3);
+        state.finalize()
     }
 }
 
