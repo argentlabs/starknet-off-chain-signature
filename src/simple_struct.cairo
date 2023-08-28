@@ -6,11 +6,11 @@ use starknet::{
 
 // sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
-    0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
+    selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
 // sn_keccak('SimpleStruct(some_felt252:felt,some_u128:felt)')                                                                          
 const SIMPLE_STRUCT_TYPE_HASH: felt252 =
-    0x25177052b0f318e5f6ee29b592db4404f8dd010af48a0e87d122195bc43e040;
+    selector!("SimpleStruct(some_felt252:felt,some_u128:u128)");
 
 #[derive(Drop, Copy)]
 struct SimpleStruct {
@@ -74,7 +74,7 @@ impl StructHashSimpleStruct of IStructHash<SimpleStruct> {
 #[available_gas(2000000)]
 fn test_valid_hash() {
     // This value was computed using StarknetJS
-    let simple_struct_hashed = 0x6db1bb5347fb6b79d14f549c0f3f676a2985e7b0acf63543005634a4de81483;
+    let simple_struct_hashed = 0x1e739b39f83b38f182edaed69f730f18eff802d3ef44be91c3733cdcab6de2f;
     let simple_struct = SimpleStruct { some_felt252: 712, some_u128: 42 };
     set_caller_address(contract_address_const::<420>());
     assert(simple_struct.get_message_hash() == simple_struct_hashed, 'Hash should be valid');

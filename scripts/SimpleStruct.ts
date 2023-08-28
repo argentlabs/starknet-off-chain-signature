@@ -8,7 +8,7 @@ const types = {
   ],
   SimpleStruct: [
     { name: "some_felt252", type: "felt" },
-    { name: "some_u128", type: "felt" },
+    { name: "some_u128", type: "u128" },
   ],
 };
 

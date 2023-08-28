@@ -35,8 +35,8 @@ struct StructWithEnum {
 #[derive(Drop, Copy)]
 enum SomeEnum {
     FirstChoice: (),
-    SecondChoice: (u128, ),
-    ThirdChoice: (u64, u128, ),
+    SecondChoice: (u128,),
+    ThirdChoice: (u64, u128,),
 }
 
 #[derive(Drop, Copy)]

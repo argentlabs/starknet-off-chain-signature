@@ -30,14 +30,14 @@ The hash computed by an enum is quite similar to the one of a struct: H('EnumNam
 
 # Installation
 
-**Prerequsite: Have scarb installed (or ASDF) and a package manager**
+**Prerequsite: Have scarb installed through ASDF, a package manager and node version <20**
 Check you have the correct version of Scarb installed by running:
 
 ```shell
 scarb build
 ```
 
-Install the modules using your favorite package manager:
+Install the modules:
 
 ```shell
 yarn

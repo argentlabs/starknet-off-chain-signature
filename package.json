@@ -1,12 +1,12 @@
 {
-  "name": "scripts_for_tesnets",
+  "name": "scripts_for_offchain_signature",
   "version": "1.0.0",
   "description": "",
   "type": "module",
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "starknet": "5.16.0"
+    "starknet": "5.17.0"
   },
   "devDependencies": {
     "dotenv": "^16.0.3",
