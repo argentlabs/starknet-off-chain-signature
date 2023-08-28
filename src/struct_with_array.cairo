@@ -62,11 +62,12 @@ impl StructHashStarknetDomain of IStructHash<StarknetDomain> {
 
 impl StructHashStructWithArray of IStructHash<StructWithArray> {
     fn hash_struct(self: @StructWithArray) -> felt252 {
-        let mut state = LegacyHash::hash(0, STRUCT_WITH_ARRAY_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.some_felt252);
-        state = LegacyHash::hash(state, self.some_array.hash_struct());
-        state = LegacyHash::hash(state, 3);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(STRUCT_WITH_ARRAY_TYPE_HASH);
+        state = state.update_with(*self.some_felt252);
+        state = state.update_with(self.some_array.hash_struct());
+        state = state.update_with(3);
+        state.finalize()
     }
 }
 
@@ -92,7 +93,6 @@ impl LegacyHashSpanFelt252 of LegacyHash<Span<felt252>> {
         }
     }
 }
-
 
 #[test]
 #[available_gas(2000000)]

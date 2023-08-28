@@ -125,7 +125,6 @@ impl StructHashSpanFelt252 of IStructHash<(u64, u128)> {
     }
 }
 
-
 #[test]
 #[available_gas(2000000)]
 fn test_valid_hash() {
