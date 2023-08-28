@@ -3,7 +3,7 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 use pedersen::{PedersenTrait, HashState};
-use hash::{LegacyHash, HashStateTrait, Hash, HashStateExTrait};
+use hash::{HashStateTrait, HashStateExTrait};
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
@@ -11,7 +11,7 @@ const STARKNET_DOMAIN_TYPE_HASH: felt252 =
 const STRUCT_WITH_MERKLETREE_TYPE_HASH: felt252 =
     selector!("StructWithMerkletree(some_felt252:felt,some_merkletree_root:merkletree)");
 
-#[derive(Drop, Copy)]
+#[derive(Drop, Copy, Hash)]
 struct StructWithMerkletree {
     some_felt252: felt252,
     some_merkletree_root: felt252,
@@ -61,11 +61,11 @@ impl StructHashStarknetDomain of IStructHash<StarknetDomain> {
 
 impl StructHashStructWithMerkletree of IStructHash<StructWithMerkletree> {
     fn hash_struct(self: @StructWithMerkletree) -> felt252 {
-        let mut state = LegacyHash::hash(0, STRUCT_WITH_MERKLETREE_TYPE_HASH);
-        state = LegacyHash::hash(state, *self.some_felt252);
-        state = LegacyHash::hash(state, *self.some_merkletree_root);
-        state = LegacyHash::hash(state, 3);
-        state
+        let mut state = PedersenTrait::new(0);
+        state = state.update_with(STRUCT_WITH_MERKLETREE_TYPE_HASH);
+        state = state.update_with(*self);
+        state = state.update_with(3);
+        state.finalize()
     }
 }
 

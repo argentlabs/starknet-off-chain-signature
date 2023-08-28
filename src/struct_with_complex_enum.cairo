@@ -4,7 +4,7 @@ use starknet::{
 };
 
 use pedersen::{PedersenTrait, HashState};
-use hash::{LegacyHash, HashStateTrait, Hash, HashStateExTrait};
+use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
 use traits::Into;
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =

@@ -3,7 +3,7 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 use pedersen::{PedersenTrait, HashState};
-use hash::{LegacyHash, HashStateTrait, Hash, HashStateExTrait};
+use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
 use traits::Into;
 
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
