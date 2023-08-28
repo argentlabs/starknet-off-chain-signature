@@ -39,6 +39,7 @@ function getTypedData(myStruct: StructWithEnum, chainId: string): typedData.Type
     message: { ...myStruct },
   };
 }
+
 const structWithEnum: StructWithEnum = {
   some_felt252: "712",
   some_complex_enum: [selector.getSelectorFromName("SomeEnum::ThirdChoice(felt,felt)"), "42", "128"],
