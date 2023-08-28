@@ -44,7 +44,7 @@ const simpleStruct: SimpleStruct = {
   some_felt252: "712",
   some_u128: "42",
 };
-
+// TODO DELETE ALL REF TO const X = Y, can be dfone through selector!("");
 // sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
 // sn_keccak('SimpleStruct(some_felt252:felt,some_u128:felt)')
