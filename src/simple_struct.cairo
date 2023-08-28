@@ -4,11 +4,9 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
     selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
-// sn_keccak('SimpleStruct(some_felt252:felt,some_u128:felt)')                                                                          
 const SIMPLE_STRUCT_TYPE_HASH: felt252 =
     selector!("SimpleStruct(some_felt252:felt,some_u128:u128)");
 

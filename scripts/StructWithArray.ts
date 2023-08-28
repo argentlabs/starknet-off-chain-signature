@@ -45,9 +45,4 @@ const structWithArray: StructWithArray = {
   some_array: ["4", "2"],
 };
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
-console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
-console.log(`const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithArray")};`);
-
 console.log(`test test_valid_hash ${getTypedDataHash(structWithArray, "0", 420n)};`);

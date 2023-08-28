@@ -4,16 +4,13 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
-    0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
+    selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
-// sn_keccak('StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)')                                                                          
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
-    0x35adf841dd9b75f25c756d57ff358ca550373f6b6043948ab6e34e958136016;
+    selector!("StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)");
 
-// sn_keccak('u256(low:felt,high:felt)')
-const U256_TYPE_HASH: felt252 = 0x2ee86241508f9ca7043fb572033e45c445012a8dbb2b929391d37fc44fbfceb;
+const U256_TYPE_HASH: felt252 = selector!("u256(low:felt,high:felt)");
 
 #[derive(Drop, Copy)]
 struct StructWithU256 {

@@ -5,13 +5,11 @@ use starknet::{
     contract_address_const, get_tx_info, get_caller_address, testing::set_caller_address
 };
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
-    0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
+    selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
-// sn_keccak('StructWithArray(some_felt252:felt,some_array:felt*)')                                                                          
 const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 =
-    0x18697a29029709ce05110fa020e7fef8e846789f4d45068e60f5865a1e7c52d;
+    selector!("StructWithArray(some_felt252:felt,some_array:felt*)");
 
 #[derive(Drop, Copy)]
 struct StructWithArray {

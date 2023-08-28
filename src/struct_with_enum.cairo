@@ -5,25 +5,17 @@ use starknet::{
 };
 use traits::Into;
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
 const STARKNET_DOMAIN_TYPE_HASH: felt252 =
-    0x1bfc207425a47a5dfa1a50a4f5241203f50624ca5fdf5e18755765416b8e288;
+    selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
-// sn_keccak('StructWithEnum(some_felt252:felt,some_enum:felt)')                                                                          
 const STRUCT_WITH_ENUM_TYPE_HASH: felt252 =
-    0x31b53772ce14f475abf0d4357457a8395953d77f79e301d7f3189f7572fe111;
+    selector!("StructWithEnum(some_felt252:felt,some_enum:felt)");
 
-// sn_keccak('SomeEnum::FirstChoice()')                                                                          
-const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 =
-    0x28dd8cb67a18f24036cea63e72c714157cccaad60b0eede0a468612d13c1755;
+const ENUM_FIRST_CHOICE_TYPE_HASH: felt252 = selector!("SomeEnum::FirstChoice()");
 
-// sn_keccak('SomeEnum::SecondChoice()')                                                                          
-const ENUM_SEC_CHOICE_TYPE_HASH: felt252 =
-    0x37b53e745a09647bd052eed3d841d034b68be6875b8ca2b6946713872920de0;
+const ENUM_SEC_CHOICE_TYPE_HASH: felt252 = selector!("SomeEnum::SecondChoice()");
 
-// sn_keccak('SomeEnum::ThirdChoice()')                                                                          
-const ENUM_THIRD_CHOICE_TYPE_HASH: felt252 =
-    0x2ff25f5b6f85e646f3d741f9623a7c2098e7db51f287f5a7a9ac8b5e0437671;
+const ENUM_THIRD_CHOICE_TYPE_HASH: felt252 = selector!("SomeEnum::ThirdChoice()");
 
 #[derive(Drop, Copy)]
 struct StructWithEnum {

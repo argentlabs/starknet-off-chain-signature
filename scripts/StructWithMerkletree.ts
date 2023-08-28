@@ -51,13 +51,4 @@ const structWithMerkletree: StructWithMerkletree = {
   some_merkletree_root: someLeaves,
 };
 
-// sn_keccak('StarkNetDomain(name:felt,version:felt,chainId:felt)')
-console.log(`const STARKNET_DOMAIN_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StarkNetDomain")};`);
-// sn_keccak('SomeLeaf(contract_address:ContractAddress)')
-console.log(`const SOME_LEAF_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "SomeLeaf")};`);
-// sn_keccak('StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)')
-console.log(
-  `const STRUCT_WITH_MERKLETREE_TYPE_HASH: felt252 = ${typedData.getTypeHash(types, "StructWithMerkletree")};`,
-);
-
 console.log(`test test_valid_hash ${getTypedDataHash(structWithMerkletree, "0", 420n)};`);
