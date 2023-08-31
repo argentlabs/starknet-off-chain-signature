@@ -44,11 +44,10 @@ function getTypedData(myStruct: StructWithMerkletree, chainId: string): typedDat
     message: { ...myStruct },
   };
 }
-const someLeaves: SomeLeaf[] = [{ contract_address: "0x1" }, { contract_address: "0x2" }];
 
 const structWithMerkletree: StructWithMerkletree = {
   some_felt252: "712",
-  some_merkletree_root: someLeaves,
+  some_merkletree_root: [{ contract_address: "0x1" }, { contract_address: "0x2" }],
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithMerkletree, "0", 420n)};`);
