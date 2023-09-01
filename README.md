@@ -35,6 +35,7 @@ If you need to see the hash produced by StarknetJS, refer to the [Scarb.tom file
 ```shell
 scarb run SimpleStruct
 ```
+
 # License
 
 This repository is released under the [MIT License](./LICENSE).

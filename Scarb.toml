@@ -11,8 +11,6 @@ starknet = "=2.2.0"
 [scripts]
 SimpleStruct= "npx ts-node scripts/SimpleStruct.ts"
 StructWithArray= "npx ts-node scripts/StructWithArray.ts"
-StructWithEnum= "npx ts-node scripts/StructWithEnum.ts"
-StructWithComplexEnum= "npx ts-node scripts/StructWithComplexEnum.ts"
 StructWithMerkletree= "npx ts-node scripts/StructWithMerkletree.ts"
 StructWithU256= "npx ts-node scripts/StructWithU256.ts"
 format = "scarb fmt && npx prettier --write ."
