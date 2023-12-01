@@ -44,7 +44,7 @@ impl OffchainMessageHashSimpleStruct of IOffchainMessageHash<SimpleStruct> {
         state = state.update_with(get_caller_address());
         state = state.update_with(self.hash_struct());
         // Hashing with the amount of elements being hashed 
-        state = state.update_with(4);
+        state = state.update_with(5);
         state.finalize()
     }
 }
