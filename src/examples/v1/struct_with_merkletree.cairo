@@ -4,7 +4,9 @@ use hash::{HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const STRUCT_WITH_MERKLETREE_TYPE_HASH: felt252 =
-    selector!("StructWithMerkletree(some_felt252:felt,some_merkletree_root:merkletree)");
+    selector!(
+        "\"StructWithMerkletree\"(\"some_felt252\":\"felt\",\"some_merkletree_root\":\"merkletree\")"
+    );
 
 #[derive(Drop, Copy, Hash)]
 struct StructWithMerkletree {
@@ -32,7 +34,6 @@ impl StructHashStructWithMerkletree of IStructHash<StructWithMerkletree> {
         let mut state = PoseidonTrait::new();
         state = state.update_with(STRUCT_WITH_MERKLETREE_TYPE_HASH);
         state = state.update_with(*self);
-        state = state.update_with(3);
         state.finalize()
     }
 }
@@ -47,7 +48,7 @@ mod tests {
         let message_hash = 0x2a89d9f00b3ead36ea204b956bc9ac862a5e7e0f2ad2bf790322dda9690629e;
         let simple_struct = StructWithMerkletree {
             some_felt252: 712,
-            some_merkletree_root: 0x1e3fb24d6eeb2fdf4308dd358adfb0169dcdb21b3c6bac8ca223a9af6a2bbd9
+            some_merkletree_root: 0x12cee444dbe3866ab527d0b89fa884d2f21b6eca0f2dfd8ecd73cb3d7297edc
         };
         set_caller_address(420.try_into().unwrap());
         assert_eq!(simple_struct.get_message_hash(), message_hash);
