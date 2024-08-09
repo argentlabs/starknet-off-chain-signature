@@ -5,10 +5,10 @@ use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::Sta
 
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
     selector!(
-        "\"StructWithU256\"(\"some_felt252\":\"felt\",\"some_u256\":\"u256\")\"u256\"(\"low\":\"felt\",\"high\":\"felt\")"
+        "\"StructWithU256\"(\"some_felt252\":\"felt\",\"some_u256\":\"u256\")\"u256\"(\"low\":\"u128\",\"high\":\"u128\")"
     );
 
-const U256_TYPE_HASH: felt252 = selector!("\"u256\"(\"low\":\"felt\",\"high\":\"felt\")");
+const U256_TYPE_HASH: felt252 = selector!("\"u256\"(\"low\":\"u128\",\"high\":\"u128\")");
 
 #[derive(Drop, Copy, Hash)]
 struct StructWithU256 {
