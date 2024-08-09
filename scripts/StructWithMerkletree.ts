@@ -1,4 +1,4 @@
-import { typedData } from "starknet";
+import { StarknetDomain, TypedData, typedData } from "starknet";
 
 const types = {
   StarkNetDomain: [
@@ -22,7 +22,7 @@ export interface SomeLeaf {
   contract_address: string;
 }
 
-function getDomain(chainId: string): typedData.StarkNetDomain {
+function getDomain(chainId: string): StarknetDomain {
   return {
     name: "dappName",
     version: "1",
@@ -36,7 +36,7 @@ function getTypedDataHash(myStruct: StructWithMerkletree, chainId: string, owner
 
 // Needed to reproduce the same structure as:
 // https://github.com/0xs34n/starknet.js/blob/1a63522ef71eed2ff70f82a886e503adc32d4df9/__mocks__/typedDataStructArrayExample.json
-function getTypedData(myStruct: StructWithMerkletree, chainId: string): typedData.TypedData {
+function getTypedData(myStruct: StructWithMerkletree, chainId: string): TypedData {
   return {
     types,
     primaryType: "StructWithMerkletree",

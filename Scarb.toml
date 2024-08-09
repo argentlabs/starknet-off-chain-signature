@@ -1,12 +1,15 @@
 [package]
 name = "off_chain_signature"
-version = "0.2.0"
+version = "0.3.0"
 
 [[target.starknet-contract]]
 sierra = true
 
 [dependencies]
-starknet = "=2.2.0"
+starknet = "2.7.0"
+
+[dev-dependencies]
+cairo_test = "2.7.0"
 
 [scripts]
 SimpleStruct= "npx ts-node scripts/SimpleStruct.ts"
@@ -14,3 +17,5 @@ StructWithArray= "npx ts-node scripts/StructWithArray.ts"
 StructWithMerkletree= "npx ts-node scripts/StructWithMerkletree.ts"
 StructWithU256= "npx ts-node scripts/StructWithU256.ts"
 format = "scarb fmt && npx prettier --write ."
+
+## TODO ADD ALL STANDARD INTERFACES
