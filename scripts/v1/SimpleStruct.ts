@@ -1,6 +1,6 @@
 import { shortString, StarknetDomain, TypedData, typedData, TypedDataRevision } from "starknet";
 
-const types = { 
+const types = {
   StarknetDomain: [
     { name: "name", type: "shortstring" },
     { name: "version", type: "shortstring" },
@@ -23,7 +23,7 @@ function getDomain(chainId: string): StarknetDomain {
     name: "dappName",
     version: shortString.encodeShortString("1"),
     chainId,
-    revision:TypedDataRevision.ACTIVE,
+    revision: TypedDataRevision.ACTIVE,
   };
 }
 
