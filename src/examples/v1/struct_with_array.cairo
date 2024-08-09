@@ -5,7 +5,7 @@ use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 =
-    selector!("StructWithArray(some_felt252:felt,some_array:felt*)");
+    selector!("\"StructWithArray\"(\"some_felt252\":\"felt\",\"some_array\":\"felt*\")");
 
 #[derive(Drop, Copy)]
 struct StructWithArray {
@@ -41,9 +41,11 @@ impl StructHashStructWithArray of IStructHash<StructWithArray> {
 
 impl StructHashSpanFelt252 of IStructHash<Span<felt252>> {
     fn get_struct_hash(self: @Span<felt252>) -> felt252 {
-        let mut call_data_state = LegacyHash::hash(0, *self);
-        call_data_state = LegacyHash::hash(call_data_state, (*self).len());
-        call_data_state
+        let mut state = PoseidonTrait::new();
+        for el in (*self) {
+            state = state.update_with(*el);
+        };
+        state.finalize()
     }
 }
 
@@ -65,7 +67,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x266b2350f2febce38581c6aa5b1afb829bb1466840400305fe51548ba32544e;
+        let message_hash = 0x723b50f650b3b037620c51955e482aeb7786fadeb0d7a384ef99278102f038f;
         let mut some_array = ArrayTrait::new();
         some_array.append(4);
         some_array.append(2);

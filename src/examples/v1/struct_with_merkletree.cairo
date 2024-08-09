@@ -44,7 +44,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x4e4aa6e92e1250e5277a99686aa17c411b28b83fc948df78c10f848f1b0ad30;
+        let message_hash = 0x2a89d9f00b3ead36ea204b956bc9ac862a5e7e0f2ad2bf790322dda9690629e;
         let simple_struct = StructWithMerkletree {
             some_felt252: 712,
             some_merkletree_root: 0x1e3fb24d6eeb2fdf4308dd358adfb0169dcdb21b3c6bac8ca223a9af6a2bbd9
