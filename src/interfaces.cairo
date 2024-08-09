@@ -15,7 +15,7 @@ mod v0 {
     use hash::{HashStateExTrait, HashStateTrait};
     use pedersen::PedersenTrait;
 
-    /// @notice StarkNetDomain using SNIP 12 Revision 0
+    /// @notice StarkNetDomain using SNIP 12
     #[derive(Copy, Drop, Hash)]
     struct StarkNetDomain {
         name: felt252,
@@ -23,13 +23,13 @@ mod v0 {
         chain_id: felt252,
     }
 
-    const STARKNET_DOMAIN_TYPE_HASH_REV_0: felt252 =
+    const STARKNET_DOMAIN_TYPE_HASH: felt252 =
         selector!("StarkNetDomain(name:felt,version:felt,chainId:felt)");
 
     impl StructHashStarkNetDomain of super::IStructHash<StarkNetDomain> {
         fn get_struct_hash(self: @StarkNetDomain) -> felt252 {
             PedersenTrait::new(0)
-                .update_with(STARKNET_DOMAIN_TYPE_HASH_REV_0)
+                .update_with(STARKNET_DOMAIN_TYPE_HASH)
                 .update_with(*self)
                 .update_with(4)
                 .finalize()
@@ -39,7 +39,7 @@ mod v0 {
 mod v1 {
     use poseidon::poseidon_hash_span;
 
-    /// @notice StarkNetDomain using SNIP 12 Revision 1
+    /// @notice StarknetDomain using SNIP 12
     #[derive(Hash, Drop, Copy)]
     struct StarknetDomain {
         name: felt252,
@@ -48,7 +48,7 @@ mod v1 {
         revision: felt252,
     }
 
-    const STARKNET_DOMAIN_TYPE_HASH_REV_1: felt252 =
+    const STARKNET_DOMAIN_TYPE_HASH: felt252 =
         selector!(
             "\"StarknetDomain\"(\"name\":\"shortstring\",\"version\":\"shortstring\",\"chainId\":\"shortstring\",\"revision\":\"shortstring\")"
         );
@@ -57,7 +57,7 @@ mod v1 {
         fn get_struct_hash(self: @StarknetDomain) -> felt252 {
             poseidon_hash_span(
                 array![
-                    STARKNET_DOMAIN_TYPE_HASH_REV_1,
+                    STARKNET_DOMAIN_TYPE_HASH,
                     *self.name,
                     *self.version,
                     *self.chain_id,

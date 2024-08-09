@@ -1,6 +1,5 @@
-use array::{ArrayTrait, SpanTrait};
 use starknet::{get_tx_info, get_caller_address};
-use pedersen::{PedersenTrait, HashState};
+use pedersen::PedersenTrait;
 use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v0::StarkNetDomain};
 
@@ -74,6 +73,6 @@ mod tests {
         some_array.append(2);
         let simple_struct = StructWithArray { some_felt252: 712, some_array: some_array.span() };
         set_caller_address(420.try_into().unwrap());
-        assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
+        assert_eq!(simple_struct.get_message_hash(), message_hash);
     }
 }

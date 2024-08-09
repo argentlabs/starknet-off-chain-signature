@@ -3,19 +3,17 @@ use pedersen::PedersenTrait;
 use hash::{HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v0::StarkNetDomain};
 
-const STRUCT_WITH_U256_TYPE_HASH: felt252 =
-    selector!("StructWithU256(some_felt252:felt,some_u256:u256)u256(low:felt,high:felt)");
-
-const U256_TYPE_HASH: felt252 = selector!("u256(low:felt,high:felt)");
+const STRUCT_WITH_MERKLETREE_TYPE_HASH: felt252 =
+    selector!("StructWithMerkletree(some_felt252:felt,some_merkletree_root:merkletree)");
 
 #[derive(Drop, Copy, Hash)]
-struct StructWithU256 {
+struct StructWithMerkletree {
     some_felt252: felt252,
-    some_u256: u256,
+    some_merkletree_root: felt252,
 }
 
-impl OffChainMessageHashStructWithU256 of IOffChainMessageHash<StructWithU256> {
-    fn get_message_hash(self: @StructWithU256) -> felt252 {
+impl OffChainMessageHashStructWithMerkletree of IOffChainMessageHash<StructWithMerkletree> {
+    fn get_message_hash(self: @StructWithMerkletree) -> felt252 {
         let domain = StarkNetDomain {
             name: 'dappName', version: 1, chain_id: get_tx_info().unbox().chain_id
         };
@@ -31,21 +29,10 @@ impl OffChainMessageHashStructWithU256 of IOffChainMessageHash<StructWithU256> {
     }
 }
 
-impl StructHashStructWithU256 of IStructHash<StructWithU256> {
-    fn get_struct_hash(self: @StructWithU256) -> felt252 {
+impl StructHashStructWithMerkletree of IStructHash<StructWithMerkletree> {
+    fn get_struct_hash(self: @StructWithMerkletree) -> felt252 {
         let mut state = PedersenTrait::new(0);
-        state = state.update_with(STRUCT_WITH_U256_TYPE_HASH);
-        state = state.update_with(*self.some_felt252);
-        state = state.update_with(self.some_u256.get_struct_hash());
-        state = state.update_with(3);
-        state.finalize()
-    }
-}
-
-impl StructHashU256 of IStructHash<u256> {
-    fn get_struct_hash(self: @u256) -> felt252 {
-        let mut state = PedersenTrait::new(0);
-        state = state.update_with(U256_TYPE_HASH);
+        state = state.update_with(STRUCT_WITH_MERKLETREE_TYPE_HASH);
         state = state.update_with(*self);
         state = state.update_with(3);
         state.finalize()
@@ -54,15 +41,17 @@ impl StructHashU256 of IStructHash<u256> {
 
 #[cfg(test)]
 mod tests {
-    use super::{StructWithU256, IOffChainMessageHash};
+    use super::{StructWithMerkletree, IOffChainMessageHash};
     use starknet::testing::set_caller_address;
-
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x24fcf47ecd5090d0dfd5e66a57e5d56d3db3478e37bb90c1b1351b4317197fd;
-        let simple_struct = StructWithU256 { some_felt252: 712, some_u256: 42 };
+        let message_hash = 0x4e4aa6e92e1250e5277a99686aa17c411b28b83fc948df78c10f848f1b0ad30;
+        let simple_struct = StructWithMerkletree {
+            some_felt252: 712,
+            some_merkletree_root: 0x1e3fb24d6eeb2fdf4308dd358adfb0169dcdb21b3c6bac8ca223a9af6a2bbd9
+        };
         set_caller_address(420.try_into().unwrap());
-        assert(simple_struct.get_message_hash() == message_hash, 'Hash should be valid');
+        assert_eq!(simple_struct.get_message_hash(), message_hash);
     }
 }
