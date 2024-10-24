@@ -12,5 +12,6 @@ mod examples {
         mod struct_with_array;
         mod struct_with_merkletree;
         mod struct_with_u256;
+        mod struct_with_byte_array;
     }
 }
