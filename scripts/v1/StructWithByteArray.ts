@@ -18,7 +18,6 @@ interface StructWithByteArray {
   some_byte_array: string;
 }
 
-
 function getDomain(chainId: string): StarknetDomain {
   return {
     name: "dappName",
