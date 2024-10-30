@@ -1,4 +1,4 @@
-import { byteArray, shortString, StarknetDomain, TypedData, typedData, TypedDataRevision } from "starknet";
+import { shortString, StarknetDomain, TypedData, typedData, TypedDataRevision } from "starknet";
 
 const types = {
   StarknetDomain: [
