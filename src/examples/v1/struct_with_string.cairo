@@ -4,16 +4,16 @@ use hash::{HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
-    selector!("\"StructWithByteArray\"(\"some_felt252\":\"felt\",\"some_byte_array\":\"string\")");
+    selector!("\"StructWithString\"(\"some_felt252\":\"felt\",\"some_string\":\"string\")");
 
 #[derive(Drop)]
-struct StructWithByteArray {
+struct StructWithString {
     some_felt252: felt252,
-    some_byte_array: ByteArray,
+    some_string: ByteArray,
 }
 
-impl OffChainMessageHashStructWithByteArray of IOffChainMessageHash<StructWithByteArray> {
-    fn get_message_hash(self: @StructWithByteArray) -> felt252 {
+impl OffChainMessageHashStructWithString of IOffChainMessageHash<StructWithString> {
+    fn get_message_hash(self: @StructWithString) -> felt252 {
         let domain = StarknetDomain {
             name: 'dappName', version: '1', chain_id: get_tx_info().unbox().chain_id, revision: 1
         };
@@ -28,12 +28,12 @@ impl OffChainMessageHashStructWithByteArray of IOffChainMessageHash<StructWithBy
     }
 }
 
-impl StructHashStructWithByteArray of IStructHash<StructWithByteArray> {
-    fn get_struct_hash(self: @StructWithByteArray) -> felt252 {
+impl StructHashStructWithString of IStructHash<StructWithString> {
+    fn get_struct_hash(self: @StructWithString) -> felt252 {
         let mut state = PoseidonTrait::new();
         state = state.update_with(STRUCT_WITH_U256_TYPE_HASH);
         state = state.update_with(*self.some_felt252);
-        state = state.update_with(self.some_byte_array.get_struct_hash());
+        state = state.update_with(self.some_string.get_struct_hash());
         state.finalize()
     }
 }
@@ -52,15 +52,15 @@ impl StructHashU256 of IStructHash<ByteArray> {
 
 #[cfg(test)]
 mod tests {
-    use super::{StructWithByteArray, IOffChainMessageHash};
+    use super::{StructWithString, IOffChainMessageHash};
     use starknet::testing::set_caller_address;
 
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x3e75d70054b3e7d181949eaab082b5dab03903f08952959d46e4755b7055b5;
-        let simple_struct = StructWithByteArray {
-            some_felt252: 712, some_byte_array: "Some long message that exceeds 31 characters"
+        let message_hash = 0x48458bddb2f72c9d82fcf26efc35a8134db6dca6e9c7ac33b2814251a7c153e;
+        let simple_struct = StructWithString {
+            some_felt252: 712, some_string: "Some long message that exceeds 31 characters"
         };
         set_caller_address(420.try_into().unwrap());
         assert_eq!(simple_struct.get_message_hash(), message_hash);

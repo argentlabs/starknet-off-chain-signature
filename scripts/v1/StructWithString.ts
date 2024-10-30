@@ -7,15 +7,15 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
-  StructWithByteArray: [
+  StructWithString: [
     { name: "some_felt252", type: "felt" },
-    { name: "some_byte_array", type: "string" },
+    { name: "some_string", type: "string" },
   ],
 };
 
-interface StructWithByteArray {
+interface StructWithString {
   some_felt252: string;
-  some_byte_array: string;
+  some_string: string;
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -27,26 +27,26 @@ function getDomain(chainId: string): StarknetDomain {
   };
 }
 
-function getTypedDataHash(myStruct: StructWithByteArray, chainId: string, owner: bigint): string {
+function getTypedDataHash(myStruct: StructWithString, chainId: string, owner: bigint): string {
   console.log(JSON.stringify(getTypedData(myStruct, chainId)));
   return typedData.getMessageHash(getTypedData(myStruct, chainId), owner);
 }
 
 // Needed to reproduce the same structure as:
 // https://github.com/0xs34n/starknet.js/blob/1a63522ef71eed2ff70f82a886e503adc32d4df9/__mocks__/typedDataStructArrayExample.json
-function getTypedData(myStruct: StructWithByteArray, chainId: string): TypedData {
+function getTypedData(myStruct: StructWithString, chainId: string): TypedData {
   return {
     types,
-    primaryType: "StructWithByteArray",
+    primaryType: "StructWithString",
     domain: getDomain(chainId),
     message: { ...myStruct },
   };
 }
 
 console.log(byteArray.byteArrayFromString("Some long message that exceeds 31 characters"));
-const structWithByteArray: StructWithByteArray = {
+const structWithByteArray: StructWithString = {
   some_felt252: "712",
-  some_byte_array: "Some long message that exceeds 31 characters",
+  some_string: "Some long message that exceeds 31 characters",
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithByteArray, "0", 420n)};`);

@@ -20,7 +20,7 @@ StructWithMerkletree = "npx ts-node scripts/v0/StructWithMerkletree.ts"
 StructWithMerkletreeV1 = "npx ts-node scripts/v1/StructWithMerkletree.ts"
 StructWithU256 = "npx ts-node scripts/v0/StructWithU256.ts"
 StructWithU256V1 = "npx ts-node scripts/v1/StructWithU256.ts"
-StructWithByteArray = "npx ts-node scripts/v1/StructWithByteArray.ts"
+StructWithString = "npx ts-node scripts/v1/StructWithString.ts"
 format = "scarb fmt && npx prettier --write ."
 
 ## TODO ADD ALL STANDARD INTERFACES
