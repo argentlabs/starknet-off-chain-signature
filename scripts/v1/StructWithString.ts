@@ -28,7 +28,6 @@ function getDomain(chainId: string): StarknetDomain {
 }
 
 function getTypedDataHash(myStruct: StructWithString, chainId: string, owner: bigint): string {
-  console.log(JSON.stringify(getTypedData(myStruct, chainId)));
   return typedData.getMessageHash(getTypedData(myStruct, chainId), owner);
 }
 
@@ -43,7 +42,6 @@ function getTypedData(myStruct: StructWithString, chainId: string): TypedData {
   };
 }
 
-console.log(byteArray.byteArrayFromString("Some long message that exceeds 31 characters"));
 const structWithByteArray: StructWithString = {
   some_felt252: "712",
   some_string: "Some long message that exceeds 31 characters",

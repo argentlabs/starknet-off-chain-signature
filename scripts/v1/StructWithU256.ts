@@ -32,7 +32,6 @@ function getDomain(chainId: string): StarknetDomain {
 }
 
 function getTypedDataHash(myStruct: StructWithU256, chainId: string, owner: bigint): string {
-  console.log(JSON.stringify(getTypedData(myStruct, chainId)));
   return typedData.getMessageHash(getTypedData(myStruct, chainId), owner);
 }
 
