@@ -1,4 +1,4 @@
-import { StarknetDomain, TypedData, typedData, TypedDataRevision } from "starknet";
+import { shortString, StarknetDomain, TypedData, typedData, TypedDataRevision } from "starknet";
 
 const types = {
   StarknetDomain: [
@@ -21,7 +21,7 @@ interface StructWithString {
 function getDomain(chainId: string): StarknetDomain {
   return {
     name: "dappName",
-    version: "1",
+    version: shortString.encodeShortString("1"),
     chainId,
     revision: TypedDataRevision.ACTIVE,
   };
