@@ -5,7 +5,6 @@ trait IOffChainMessageHash<T> {
     fn get_message_hash(self: @T) -> felt252;
 }
 
-
 /// @notice Defines the function to generates the SNIP-12
 trait IStructHash<T> {
     fn get_struct_hash(self: @T) -> felt252;

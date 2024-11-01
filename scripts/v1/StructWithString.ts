@@ -21,7 +21,7 @@ interface StructWithString {
 function getDomain(chainId: string): StarknetDomain {
   return {
     name: "dappName",
-    version: shortString.encodeShortString("1"),
+    version: "1",
     chainId,
     revision: TypedDataRevision.ACTIVE,
   };
