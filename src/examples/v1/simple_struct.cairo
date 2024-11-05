@@ -4,7 +4,7 @@ use hash::{HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const SIMPLE_STRUCT_TYPE_HASH: felt252 =
-    selector!("\"SimpleStruct\"(\"some_felt252\":\"felt\",\"some_u128\":\"u128\")");
+    selector!("\"SimpleStruct\"(\"Some felt252\":\"felt\",\"Some u128\":\"u128\")");
 
 #[derive(Drop, Copy, Hash)]
 struct SimpleStruct {
@@ -43,7 +43,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x31f29d7fd9a54a5ad9219280638b91734ad8344ed46440bab683e0a3ba9b5f;
+        let message_hash = 0x36d6400355ba0b29321d77f6852ee5139d0e10dae54fdd80e11c24f1ef963c7;
         let simple_struct = SimpleStruct { some_felt252: 712, some_u128: 42 };
         set_caller_address(420.try_into().unwrap());
         assert_eq!(simple_struct.get_message_hash(), message_hash);

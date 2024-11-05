@@ -7,9 +7,10 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
+  // In V1 we privilege user friendly names
   StructWithU256: [
-    { name: "some_felt252", type: "felt" },
-    { name: "some_u256", type: "u256" },
+    { name: "Some felt252", type: "felt" },
+    { name: "Some u256", type: "u256" },
   ],
   u256: [
     { name: "low", type: "felt" },
@@ -18,8 +19,8 @@ const types = {
 };
 
 interface StructWithU256 {
-  some_felt252: string;
-  some_u256: Uint256;
+  someFelt252: string;
+  someU256: Uint256;
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -42,13 +43,13 @@ function getTypedData(myStruct: StructWithU256, chainId: string): TypedData {
     types,
     primaryType: "StructWithU256",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { "Some felt252": myStruct.someFelt252, "Some u256": myStruct.someU256 },
   };
 }
 
 const structWithU256: StructWithU256 = {
-  some_felt252: "712",
-  some_u256: uint256.bnToUint256(42),
+  someFelt252: "712",
+  someU256: uint256.bnToUint256(42),
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithU256, "0", 420n)};`);

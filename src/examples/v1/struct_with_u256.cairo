@@ -5,7 +5,7 @@ use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::Sta
 
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
     selector!(
-        "\"StructWithU256\"(\"some_felt252\":\"felt\",\"some_u256\":\"u256\")\"u256\"(\"low\":\"u128\",\"high\":\"u128\")"
+        "\"StructWithU256\"(\"Some felt252\":\"felt\",\"Some u256\":\"u256\")\"u256\"(\"low\":\"u128\",\"high\":\"u128\")"
     );
 
 const U256_TYPE_HASH: felt252 = selector!("\"u256\"(\"low\":\"u128\",\"high\":\"u128\")");
@@ -59,7 +59,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x454092ee54244e714ea5a7afb1ea3371f923e5d0b1418246343446b7bf18cc5;
+        let message_hash = 0xb016dbeda9552a06b8fd446446aa2aa95fa887e72a0afeeac5b99567c60901;
         let simple_struct = StructWithU256 { some_felt252: 712, some_u256: 42 };
         set_caller_address(420.try_into().unwrap());
         assert_eq!(simple_struct.get_message_hash(), message_hash);

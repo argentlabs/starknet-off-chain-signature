@@ -7,15 +7,16 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
+  // In V1 we privilege user friendly names
   StructWithString: [
-    { name: "some_felt252", type: "felt" },
-    { name: "some_string", type: "string" },
+    { name: "Some felt252", type: "felt" },
+    { name: "Some string", type: "string" },
   ],
 };
 
 interface StructWithString {
-  some_felt252: string;
-  some_string: string;
+  someFelt252: string;
+  someString: string;
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -38,13 +39,13 @@ function getTypedData(myStruct: StructWithString, chainId: string): TypedData {
     types,
     primaryType: "StructWithString",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { "Some felt252": myStruct.someFelt252, "Some string": myStruct.someString },
   };
 }
 
 const structWithByteArray: StructWithString = {
-  some_felt252: "712",
-  some_string: "Some long message that exceeds 31 characters",
+  someFelt252: "712",
+  someString: "Some long message that exceeds 31 characters",
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithByteArray, "0", 420n)};`);

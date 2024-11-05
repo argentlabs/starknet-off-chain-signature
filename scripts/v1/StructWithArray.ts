@@ -7,15 +7,16 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
+  // In V1 we privilege user friendly names
   StructWithArray: [
-    { name: "some_felt252", type: "felt" },
-    { name: "some_array", type: "felt*" },
+    { name: "Some felt252", type: "felt" },
+    { name: "Some array", type: "felt*" },
   ],
 };
 
 interface StructWithArray {
-  some_felt252: string;
-  some_array: string[];
+  someFelt252: string;
+  someArray: string[];
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -38,13 +39,13 @@ function getTypedData(myStruct: StructWithArray, chainId: string): TypedData {
     types,
     primaryType: "StructWithArray",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { "Some felt252": myStruct.someFelt252, "Some array": myStruct.someArray},
   };
 }
 
 const structWithArray: StructWithArray = {
-  some_felt252: "712",
-  some_array: ["4", "2"],
+  someFelt252: "712",
+  someArray: ["4", "2"],
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithArray, "0", 420n)};`);

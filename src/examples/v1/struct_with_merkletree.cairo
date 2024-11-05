@@ -5,7 +5,7 @@ use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::Sta
 
 const STRUCT_WITH_MERKLETREE_TYPE_HASH: felt252 =
     selector!(
-        "\"StructWithMerkletree\"(\"some_felt252\":\"felt\",\"some_merkletree_root\":\"merkletree\")"
+        "\"StructWithMerkletree\"(\"Some felt252\":\"felt\",\"Some merkletree root\":\"merkletree\")"
     );
 
 #[derive(Drop, Copy, Hash)]
@@ -45,7 +45,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x2a89d9f00b3ead36ea204b956bc9ac862a5e7e0f2ad2bf790322dda9690629e;
+        let message_hash = 0x4a20d0536b5fb562e72ef4c742111b30fd7317409cd1d95ace97055e2476b63;
         let simple_struct = StructWithMerkletree {
             some_felt252: 712,
             some_merkletree_root: 0x12cee444dbe3866ab527d0b89fa884d2f21b6eca0f2dfd8ecd73cb3d7297edc

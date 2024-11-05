@@ -7,16 +7,17 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
+  // In V1 we privilege user friendly names
   StructWithMerkletree: [
-    { name: "some_felt252", type: "felt" },
-    { name: "some_merkletree_root", type: "merkletree", contains: "SomeLeaf" },
+    { name: "Some felt252", type: "felt" },
+    { name: "Some merkletree root", type: "merkletree", contains: "SomeLeaf" },
   ],
   SomeLeaf: [{ name: "contract_address", type: "ContractAddress" }],
 };
 
 interface StructWithMerkletree {
-  some_felt252: string;
-  some_merkletree_root: SomeLeaf[];
+  someFelt252: string;
+  someMerkletreeRoot: SomeLeaf[];
 }
 
 export interface SomeLeaf {
@@ -43,13 +44,13 @@ function getTypedData(myStruct: StructWithMerkletree, chainId: string): TypedDat
     types,
     primaryType: "StructWithMerkletree",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { "Some felt252": myStruct.someFelt252, "Some merkletree root": myStruct.someMerkletreeRoot },
   };
 }
 
 const structWithMerkletree: StructWithMerkletree = {
-  some_felt252: "712",
-  some_merkletree_root: [{ contract_address: "0x1" }, { contract_address: "0x2" }],
+  someFelt252: "712",
+  someMerkletreeRoot: [{ contract_address: "0x1" }, { contract_address: "0x2" }],
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithMerkletree, "0", 420n)};`);

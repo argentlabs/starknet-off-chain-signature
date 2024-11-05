@@ -7,15 +7,16 @@ const types = {
     { name: "chainId", type: "shortstring" },
     { name: "revision", type: "shortstring" },
   ],
+  // In V1 we privilege user friendly names
   SimpleStruct: [
-    { name: "some_felt252", type: "felt" },
-    { name: "some_u128", type: "u128" },
+    { name: "Some felt252", type: "felt" },
+    { name: "Some u128", type: "u128" },
   ],
 };
 
 interface SimpleStruct {
-  some_felt252: string;
-  some_u128: string;
+  someFelt252: string;
+  someU128: string;
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -38,13 +39,13 @@ function getTypedData(myStruct: SimpleStruct, chainId: string): TypedData {
     types,
     primaryType: "SimpleStruct",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { "Some felt252": myStruct.someFelt252, "Some u128": myStruct.someU128 },
   };
 }
 
 const simpleStruct: SimpleStruct = {
-  some_felt252: "712",
-  some_u128: "42",
+  someFelt252: "712",
+  someU128: "42",
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(simpleStruct, "0", 420n)};`);

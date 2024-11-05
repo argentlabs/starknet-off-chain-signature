@@ -4,7 +4,7 @@ use hash::{HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const STRUCT_WITH_U256_TYPE_HASH: felt252 =
-    selector!("\"StructWithString\"(\"some_felt252\":\"felt\",\"some_string\":\"string\")");
+    selector!("\"StructWithString\"(\"Some felt252\":\"felt\",\"Some string\":\"string\")");
 
 #[derive(Drop)]
 struct StructWithString {
@@ -58,7 +58,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x48458bddb2f72c9d82fcf26efc35a8134db6dca6e9c7ac33b2814251a7c153e;
+        let message_hash = 0x73af00bf71d41fb165a48b8813cfa1ca29c429324ebbf5ffc732793ecfd8586;
         let simple_struct = StructWithString {
             some_felt252: 712, some_string: "Some long message that exceeds 31 characters"
         };

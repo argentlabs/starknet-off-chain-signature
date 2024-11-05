@@ -5,7 +5,7 @@ use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
 use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
 
 const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 =
-    selector!("\"StructWithArray\"(\"some_felt252\":\"felt\",\"some_array\":\"felt*\")");
+    selector!("\"StructWithArray\"(\"Some felt252\":\"felt\",\"Some array\":\"felt*\")");
 
 #[derive(Drop, Copy)]
 struct StructWithArray {
@@ -67,7 +67,7 @@ mod tests {
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x723b50f650b3b037620c51955e482aeb7786fadeb0d7a384ef99278102f038f;
+        let message_hash = 0x6ef360ec9d363c6cf700203278eff2850dc44286f518d2a5eb9481065dc4bfb;
         let mut some_array = ArrayTrait::new();
         some_array.append(4);
         some_array.append(2);
