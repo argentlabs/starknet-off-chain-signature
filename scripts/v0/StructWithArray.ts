@@ -13,8 +13,8 @@ const types = {
 };
 
 interface StructWithArray {
-  some_felt252: string;
-  some_array: string[];
+  someFelt252: string;
+  someArray: string[];
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -36,13 +36,13 @@ function getTypedData(myStruct: StructWithArray, chainId: string): TypedData {
     types,
     primaryType: "StructWithArray",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { some_felt252: myStruct.someFelt252, some_array: myStruct.someArray },
   };
 }
 
 const structWithArray: StructWithArray = {
-  some_felt252: "712",
-  some_array: ["4", "2"],
+  someFelt252: "712",
+  someArray: ["4", "2"],
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithArray, "0", 420n)};`);

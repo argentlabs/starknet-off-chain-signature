@@ -17,8 +17,8 @@ const types = {
 };
 
 interface StructWithU256 {
-  some_felt252: string;
-  some_u256: Uint256;
+  someFelt252: string;
+  someU256: Uint256;
 }
 
 function getDomain(chainId: string): StarknetDomain {
@@ -40,13 +40,13 @@ function getTypedData(myStruct: StructWithU256, chainId: string): TypedData {
     types,
     primaryType: "StructWithU256",
     domain: getDomain(chainId),
-    message: { ...myStruct },
+    message: { some_felt252: myStruct.someFelt252, some_u256: myStruct.someU256 },
   };
 }
 
 const structWithU256: StructWithU256 = {
-  some_felt252: "712",
-  some_u256: uint256.bnToUint256(42),
+  someFelt252: "712",
+  someU256: uint256.bnToUint256(42),
 };
 
 console.log(`test test_valid_hash ${getTypedDataHash(structWithU256, "0", 420n)};`);

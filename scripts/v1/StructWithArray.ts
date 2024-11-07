@@ -39,7 +39,7 @@ function getTypedData(myStruct: StructWithArray, chainId: string): TypedData {
     types,
     primaryType: "StructWithArray",
     domain: getDomain(chainId),
-    message: { "Some felt252": myStruct.someFelt252, "Some array": myStruct.someArray},
+    message: { "Some felt252": myStruct.someFelt252, "Some array": myStruct.someArray },
   };
 }
 
