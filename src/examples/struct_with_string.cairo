@@ -1,10 +1,12 @@
-use starknet::{get_tx_info, get_caller_address};
-use poseidon::PoseidonTrait;
-use hash::{HashStateTrait, HashStateExTrait};
-use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v1::StarknetDomain};
+use core::hash::{HashStateExTrait, HashStateTrait};
+use core::poseidon::PoseidonTrait;
+use off_chain_signature::interfaces::v1::StarknetDomain;
+use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash};
+use starknet::{get_caller_address, get_tx_info};
 
-const STRUCT_WITH_U256_TYPE_HASH: felt252 =
-    selector!("\"StructWithString\"(\"Some felt252\":\"felt\",\"Some string\":\"string\")");
+const STRUCT_WITH_U256_TYPE_HASH: felt252 = selector!(
+    "\"StructWithString\"(\"Some felt252\":\"felt\",\"Some string\":\"string\")",
+);
 
 #[derive(Drop)]
 struct StructWithString {
@@ -15,7 +17,7 @@ struct StructWithString {
 impl OffChainMessageHashStructWithString of IOffChainMessageHash<StructWithString> {
     fn get_message_hash(self: @StructWithString) -> felt252 {
         let domain = StarknetDomain {
-            name: 'dappName', version: '1', chain_id: get_tx_info().unbox().chain_id, revision: 1
+            name: 'dappName', version: '1', chain_id: get_tx_info().unbox().chain_id, revision: 1,
         };
         let mut state = PoseidonTrait::new();
         state = state.update_with('StarkNet Message');
@@ -45,22 +47,22 @@ impl StructHashU256 of IStructHash<ByteArray> {
         Serde::serialize(self, ref output);
         for e in output.span() {
             state = state.update_with(*e);
-        };
+        }
         state.finalize()
     }
 }
 
 #[cfg(test)]
 mod tests {
-    use super::{StructWithString, IOffChainMessageHash};
     use starknet::testing::set_caller_address;
+    use super::{IOffChainMessageHash, StructWithString};
 
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
         let message_hash = 0x73af00bf71d41fb165a48b8813cfa1ca29c429324ebbf5ffc732793ecfd8586;
         let simple_struct = StructWithString {
-            some_felt252: 712, some_string: "Some long message that exceeds 31 characters"
+            some_felt252: 712, some_string: "Some long message that exceeds 31 characters",
         };
         set_caller_address(420.try_into().unwrap());
         assert_eq!(simple_struct.get_message_hash(), message_hash);

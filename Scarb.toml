@@ -1,24 +1,21 @@
 [package]
 name = "off_chain_signature"
 version = "0.3.0"
+edition = "2024_07"
 
 [[target.starknet-contract]]
 sierra = true
 
 [dependencies]
-starknet = "2.8.2"
+starknet = "2.11.4"
 
 [dev-dependencies]
-cairo_test = "2.8.2"
+cairo_test = "2.11.4"
 
 [scripts]
-SimpleStruct = "npx ts-node scripts/v0/SimpleStruct.ts"
-SimpleStructV1 = "npx ts-node scripts/v1/SimpleStruct.ts"
-StructWithArray = "npx ts-node scripts/v0/StructWithArray.ts"
-StructWithArrayV1 = "npx ts-node scripts/v1/StructWithArray.ts"
-StructWithMerkletree = "npx ts-node scripts/v0/StructWithMerkletree.ts"
-StructWithMerkletreeV1 = "npx ts-node scripts/v1/StructWithMerkletree.ts"
-StructWithU256 = "npx ts-node scripts/v0/StructWithU256.ts"
-StructWithU256V1 = "npx ts-node scripts/v1/StructWithU256.ts"
-StructWithString = "npx ts-node scripts/v1/StructWithString.ts"
+SimpleStruct = "node --loader ts-node/esm scripts/SimpleStruct.ts"
+StructWithArray = "node --loader ts-node/esm scripts/StructWithArray.ts"
+StructWithMerkletree = "node --loader ts-node/esm scripts/StructWithMerkletree.ts"
+StructWithU256 = "node --loader ts-node/esm scripts/StructWithU256.ts"
+StructWithString = "node --loader ts-node/esm scripts/StructWithString.ts"
 format = "scarb fmt && npx prettier --write ."

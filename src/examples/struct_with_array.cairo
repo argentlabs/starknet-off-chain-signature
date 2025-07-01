@@ -1,51 +1,52 @@
-use starknet::{get_tx_info, get_caller_address};
-use pedersen::PedersenTrait;
-use hash::{LegacyHash, HashStateTrait, HashStateExTrait};
-use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash, v0::StarkNetDomain};
+use core::hash::{HashStateExTrait, HashStateTrait, LegacyHash};
+use core::poseidon::PoseidonTrait;
+use off_chain_signature::interfaces::v1::StarknetDomain;
+use off_chain_signature::interfaces::{IOffChainMessageHash, IStructHash};
+use starknet::{get_caller_address, get_tx_info};
 
-const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 =
-    selector!("StructWithArray(some_felt252:felt,some_array:felt*)");
+const STRUCT_WITH_ARRAY_TYPE_HASH: felt252 = selector!(
+    "\"StructWithArray\"(\"Some felt252\":\"felt\",\"Some array\":\"felt*\")",
+);
 
 #[derive(Drop, Copy)]
 struct StructWithArray {
     some_felt252: felt252,
-    some_array: Span<felt252>
+    some_array: Span<felt252>,
 }
 
 
 impl OffChainMessageHashStructWithArray of IOffChainMessageHash<StructWithArray> {
     fn get_message_hash(self: @StructWithArray) -> felt252 {
-        let domain = StarkNetDomain {
-            name: 'dappName', version: 1, chain_id: get_tx_info().unbox().chain_id
+        let domain = StarknetDomain {
+            name: 'dappName', version: '1', chain_id: get_tx_info().unbox().chain_id, revision: 1,
         };
-        let mut state = PedersenTrait::new(0);
+        let mut state = PoseidonTrait::new();
         state = state.update_with('StarkNet Message');
         state = state.update_with(domain.get_struct_hash());
         // This can be a field within the struct, it doesn't have to be get_caller_address().
         state = state.update_with(get_caller_address());
         state = state.update_with(self.get_struct_hash());
-        // Hashing with the amount of elements being hashed
-        state = state.update_with(4);
         state.finalize()
     }
 }
 
 impl StructHashStructWithArray of IStructHash<StructWithArray> {
     fn get_struct_hash(self: @StructWithArray) -> felt252 {
-        let mut state = PedersenTrait::new(0);
+        let mut state = PoseidonTrait::new();
         state = state.update_with(STRUCT_WITH_ARRAY_TYPE_HASH);
         state = state.update_with(*self.some_felt252);
         state = state.update_with(self.some_array.get_struct_hash());
-        state = state.update_with(3);
         state.finalize()
     }
 }
 
 impl StructHashSpanFelt252 of IStructHash<Span<felt252>> {
     fn get_struct_hash(self: @Span<felt252>) -> felt252 {
-        let mut call_data_state = LegacyHash::hash(0, *self);
-        call_data_state = LegacyHash::hash(call_data_state, (*self).len());
-        call_data_state
+        let mut state = PoseidonTrait::new();
+        for el in (*self) {
+            state = state.update_with(*el);
+        }
+        state.finalize()
     }
 }
 
@@ -62,12 +63,12 @@ impl LegacyHashSpanFelt252 of LegacyHash<Span<felt252>> {
 
 #[cfg(test)]
 mod tests {
-    use super::{StructWithArray, IOffChainMessageHash};
     use starknet::testing::set_caller_address;
+    use super::{IOffChainMessageHash, StructWithArray};
     #[test]
     fn test_valid_hash() {
         // This value was computed using StarknetJS
-        let message_hash = 0x266b2350f2febce38581c6aa5b1afb829bb1466840400305fe51548ba32544e;
+        let message_hash = 0x6ef360ec9d363c6cf700203278eff2850dc44286f518d2a5eb9481065dc4bfb;
         let mut some_array = ArrayTrait::new();
         some_array.append(4);
         some_array.append(2);
